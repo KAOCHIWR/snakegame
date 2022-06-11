@@ -79,7 +79,7 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
         g.setFont(new Font("Harlow Solid Italic",Font.PLAIN,26));
         g.drawString(lenth+" ",365,35);
 
-      //  根据难度在游戏页面提示
+      //  根据难度在游戏页面提示难度
         g.setFont(new Font("华文琥珀",Font.PLAIN,24));
         if(Startgame.time==150) {  g.drawString("难度: 简单模式",78,35); } else if (Startgame.time==100) {
             g.drawString("难度: 正常模式",78,35);

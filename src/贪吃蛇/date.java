@@ -1,8 +1,6 @@
 package 贪吃蛇;
 
 import javax.swing.*;//使用ImageIcon这个类与图片建立联系,让画面可以引用图片到面板上面
-import java.io.File;
-
 //放数据和图片
 public class date {
     public static ImageIcon right = new ImageIcon("photo/right.png");
@@ -11,7 +9,6 @@ public class date {
     public static ImageIcon food = new ImageIcon("photo/food.png");
     public static ImageIcon up = new ImageIcon("photo/up.png");
     public static ImageIcon left = new ImageIcon("photo/left.png");
-
     public static ImageIcon back = new ImageIcon("photo/back.png");
 
 }

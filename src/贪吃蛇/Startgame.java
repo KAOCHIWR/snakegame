@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import static java.awt.Color.white;
 
 class Startgame  {
     static int time =100;//越大越慢
