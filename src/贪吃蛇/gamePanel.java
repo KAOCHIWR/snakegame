@@ -1,12 +1,16 @@
 package 贪吃蛇;
 
+
 import javax.swing.*; //使用里面的类jpanel
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.Random;
+import static java.awt.Color.white;
+
 
 public class gamePanel extends JPanel implements KeyListener, ActionListener {  //继承前面的面板才能自己改变画面
 
@@ -20,7 +24,7 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
     boolean sfks = false;  //判断是否开始
     boolean sfFail = false; //游戏是否失败
     int score; //游戏的分数；
-    Timer timer = new Timer(150,this);   //给时间的概念，1秒7.5帧，监听打开的窗口，实现接口
+    Timer timer = new Timer(Startgame.time,this);   //给时间的概念，1秒7.5帧，监听打开的窗口，实现接口   并且引用前面的时间设置帧数
 
     //构造器来使用初始化的方法
     public gamePanel() {
@@ -42,16 +46,15 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
         score=0;
     }
 
+
     //Graphics 是画笔让我们能改变画面,下面是更改画面
     @Override
     protected void paintComponent(Graphics g) {//重写这个方法
         super.paintComponent(g);//清屏
-        this.setBackground(Color.WHITE);//设置背景颜色
-        date.header.paintIcon(this,g,25,11); //设置标题，用paintIcon的方法把图片贴上去
-
+        this.setBackground(white);//设置背景颜色
         //游戏区域
-        g.fillRect(25,75,850,600);
-        //开始用paintIcon的方法来画蛇
+        g.fillRect(25,10,850,665);
+        date.back.paintIcon(this,g,25,10);//给背景贴上图片
         if (fx.equals("D")){    //equals()”比较字符串中所包含的内容是否相同然后来控制蛇头的方向
             date.right.paintIcon(this,g,snakeX[0],snakey[0] ); //右
         }  else if (fx.equals("A")) {
@@ -67,26 +70,30 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
         }
         //判断游戏是否开始以及在面板上面显示东西
         if ( sfks == false ) {  //用g来画
-            g.setColor(Color.WHITE);  //字体颜色
-            g.setFont(new Font("Matura MT Script Capitals",Font.BOLD,50));//字体
-            g.drawString("Press the space to begin",150,300);
+            g.setColor(Color.BLACK);  //字体颜色
+            g.setFont(new Font("宋体",Font.BOLD,50));//字体
+            g.drawString("按空格开始",300,300);
         }
         date.food.paintIcon(this,g,foodx,foody);  //画食物
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Harlow Solid Italic",Font.PLAIN,18));
-        g.drawString("lenth:"+lenth,750,35);
-        g.drawString("score:"+score,750,50);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Harlow Solid Italic",Font.PLAIN,26));
+        g.drawString(lenth+" ",365,35);
+
+      //  根据难度在游戏页面提示
+        g.setFont(new Font("华文琥珀",Font.PLAIN,24));
+        if(Startgame.time==150) {  g.drawString("难度: 简单模式",78,35); } else if (Startgame.time==100) {
+            g.drawString("难度: 正常模式",78,35);
+        }  else { g.drawString("难度: 困难模式",78,35);}
 
         if (sfFail) {  //游戏失败
             g.setColor(Color.WHITE);
-            g.setFont(new Font("Matura MT Script Capitals",Font.PLAIN,90));
-            g.drawString("GAME OVER",30,300);
-            g.setFont(new Font("Rage Italic",Font.PLAIN,17));
-            g.drawString("Press the space to begin",710,660);
+            g.setFont(new Font("Showcard Gothic",Font.PLAIN,90));
+            g.drawString("GAME OVER",230,350);
+            g.setFont(new Font("Showcard Gothic",Font.PLAIN,17));
+            g.drawString("Press the space to begin",600,660);
         }
 
     }
-
 
     @Override //软件自动改正，让重写方法，实现对键盘的接听
     public void keyPressed(KeyEvent e) {  //按了键盘，但没有操作,自己改写来获取键盘按了什么
@@ -99,7 +106,6 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
             }else {
                 sfks = !sfks;
             }
-
             repaint();//用这个方法来刷新界面
         }
 
@@ -115,7 +121,6 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
         }
 
     }
-
 
     //监听时间，定时器
     @Override   //重写Timer的接口来进行执行定时操作让游戏动起来
@@ -160,6 +165,7 @@ public class gamePanel extends JPanel implements KeyListener, ActionListener {  
 
         timer.start();
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {  //按完之后
